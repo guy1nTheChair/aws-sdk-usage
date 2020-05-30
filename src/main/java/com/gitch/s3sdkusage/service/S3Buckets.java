@@ -10,4 +10,6 @@ import org.springframework.stereotype.Component;
 public interface S3Buckets {
     
     public List<Bucket> getBuckets();
+
+    public List<String> getContentsOfBucket(String bucketName);
 }
