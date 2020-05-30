@@ -12,4 +12,6 @@ public interface S3Buckets {
     public List<Bucket> getBuckets();
 
     public List<String> getContentsOfBucket(String bucketName);
+
+    public List<String> getContentsOfPath(String bucketName, String key);
 }

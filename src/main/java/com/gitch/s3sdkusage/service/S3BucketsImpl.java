@@ -6,13 +6,14 @@ import java.util.List;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectListing;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class S3BucketsImpl implements S3Buckets {
-    
+
     AmazonS3 s3Client = AmazonS3ClientBuilder.standard().build();
 
     @Override
@@ -25,8 +26,17 @@ public class S3BucketsImpl implements S3Buckets {
     public List<String> getContentsOfBucket(String bucketName) {
         ObjectListing objectListing = s3Client.listObjects(bucketName);
         List<String> objects = new ArrayList<>();
-        objectListing.getObjectSummaries().forEach(object -> objects.add(object.getKey()) );
+        objectListing.getObjectSummaries().forEach(object -> objects.add(object.getKey()));
         return objects;
+    }
+
+    @Override
+    public List<String> getContentsOfPath(String bucketName, String key) {
+        ListObjectsV2Result listObjectsV2Result = s3Client.listObjectsV2(bucketName, key);
+        List<String> objects = new ArrayList<>();
+        listObjectsV2Result.getObjectSummaries().forEach(object -> objects.add(object.getKey()));
+        return objects;
+
     }
 
 }
