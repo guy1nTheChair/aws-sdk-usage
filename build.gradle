@@ -23,4 +23,5 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.792'
 }
