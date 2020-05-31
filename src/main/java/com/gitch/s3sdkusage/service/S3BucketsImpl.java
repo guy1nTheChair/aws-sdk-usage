@@ -2,14 +2,16 @@ package com.gitch.s3sdkusage.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectListing;
-
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class S3BucketsImpl implements S3Buckets {
@@ -36,7 +38,11 @@ public class S3BucketsImpl implements S3Buckets {
         List<String> objects = new ArrayList<>();
         listObjectsV2Result.getObjectSummaries().forEach(object -> objects.add(object.getKey()));
         return objects;
+    }
 
+    @Override
+    public void deleteFile(Map<String, Object> map) {
+        map.entrySet().forEach(entry -> s3Client.deleteObject(entry.getKey(), entry.getValue().toString()));
     }
 
 }
